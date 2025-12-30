@@ -21,3 +21,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "Hackernews"
 include(":app")
+include(":shared")
