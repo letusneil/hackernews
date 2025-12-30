@@ -62,7 +62,9 @@ kotlin {
                 implementation(libs.kotlin.stdlib)
 
                 // Core Logic
+                implementation(project.dependencies.platform(libs.koin.bom))
                 implementation(libs.koin.core)
+
                 implementation(libs.kotlinx.datetime)
 
                 // Networking
