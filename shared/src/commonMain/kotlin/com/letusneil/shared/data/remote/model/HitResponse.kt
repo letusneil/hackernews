@@ -4,7 +4,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-internal data class HitResponse(
+data class HitResponse(
     @SerialName("objectID") val id: String,
     val title: String? = null,
     val url: String? = null,
