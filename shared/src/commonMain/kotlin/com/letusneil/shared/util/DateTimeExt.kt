@@ -1,17 +1,19 @@
 package com.letusneil.shared.util
 
-import kotlinx.datetime.Clock
+import kotlin.time.Clock
+import kotlin.time.ExperimentalTime
+import kotlin.time.Instant
 
-//fun formatTimeAgo(epochSeconds: Long): String {
-//    val now = Clock.System.now().epochSeconds
-//    val diff = now - epochSeconds
-//
-//    return when {
-//        diff < 60 -> "just now"
-//        diff < 3600 -> "${diff / 60}m"
-//        diff < 86400 -> "${diff / 3600}h"
-//        diff < 2592000 -> "${diff / 86400}d"
-//        else -> "${diff / 2592000}mo"
-//    }
-//}
-expect fun formatTimeAgo(epochSeconds: Long): String
+@OptIn(ExperimentalTime::class)
+fun formatTimeAgo(timestamp: Long, clock: Clock = Clock.System): String {
+    val now = clock.now()
+    val eventTime = Instant.fromEpochSeconds(timestamp)
+    val duration = now - eventTime
+
+    return when {
+        duration.inWholeSeconds < 60 -> "just now"
+        duration.inWholeMinutes < 60 -> "${duration.inWholeMinutes}m ago"
+        duration.inWholeHours < 24 -> "${duration.inWholeHours}h ago"
+        else -> "${duration.inWholeDays}d ago"
+    }
+}

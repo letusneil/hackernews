@@ -5,7 +5,9 @@ import com.letusneil.shared.domain.model.NewsCategory
 import com.letusneil.shared.domain.model.NewsFeedItem
 import com.letusneil.shared.domain.model.NewsItem
 import com.letusneil.shared.util.formatTimeAgo
+import kotlin.time.ExperimentalTime
 
+@OptIn(ExperimentalTime::class)
 internal fun HitResponse.toDomain(category: NewsCategory): NewsFeedItem {
     return NewsFeedItem(
         newsItem = NewsItem(

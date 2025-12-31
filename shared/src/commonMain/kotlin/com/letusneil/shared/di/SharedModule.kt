@@ -10,7 +10,9 @@ import kotlinx.serialization.json.Json
 import org.koin.core.module.dsl.bind
 import org.koin.core.module.dsl.singleOf
 import org.koin.dsl.module
+import kotlin.time.ExperimentalTime
 
+@OptIn(ExperimentalTime::class)
 val sharedModule = module {
     single {
         HttpClient {

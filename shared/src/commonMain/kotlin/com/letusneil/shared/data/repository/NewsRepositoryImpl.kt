@@ -11,15 +11,14 @@ interface NewsRepository {
     suspend fun getTopStories(page: Int): List<NewsFeedItem>
 }
 
+@OptIn(ExperimentalTime::class)
 internal class NewsRepositoryImpl(
-    private val api: HackerNewsApi
+    private val api: HackerNewsApi,
+    private val clock: Clock = Clock.System
 ) : NewsRepository {
 
-    @OptIn(ExperimentalTime::class)
     override suspend fun getTopStories(page: Int): List<NewsFeedItem> {
-        // Calculate 48h ago timestamp
-        val fortyEightHoursAgo = Clock.System.now().epochSeconds - (48 * 60 * 60)
-
+        val fortyEightHoursAgo = clock.now().epochSeconds - (48 * 60 * 60)
         val response = api.fetchTopStories(fortyEightHoursAgo, page)
         return response.hits.map { it.toDomain(NewsCategory.TOP) }
     }
