@@ -1,6 +1,7 @@
 package com.letusneil.shared.di
 
 import com.letusneil.shared.data.remote.HackerNewsApi
+import com.letusneil.shared.data.remote.KtorHackerNewsApi
 import com.letusneil.shared.data.repository.NewsRepository
 import com.letusneil.shared.data.repository.NewsRepositoryImpl
 import io.ktor.client.*
@@ -26,7 +27,7 @@ val sharedModule = module {
         }
     }
 
-    singleOf(::HackerNewsApi)
+    singleOf(::KtorHackerNewsApi) { bind<HackerNewsApi>() }
     singleOf(::NewsRepositoryImpl) { bind<NewsRepository>() }
 }
 
