@@ -4,8 +4,8 @@ import com.letusneil.shared.data.mapper.toDomain
 import com.letusneil.shared.data.remote.HackerNewsApi
 import com.letusneil.shared.domain.model.NewsCategory
 import com.letusneil.shared.domain.model.NewsFeedItem
-import com.letusneil.shared.domain.model.NewsItem
-import kotlinx.datetime.Clock
+import kotlin.time.ExperimentalTime
+import kotlin.time.Clock
 
 interface NewsRepository {
     suspend fun getTopStories(page: Int): List<NewsFeedItem>
@@ -15,6 +15,7 @@ internal class NewsRepositoryImpl(
     private val api: HackerNewsApi
 ) : NewsRepository {
 
+    @OptIn(ExperimentalTime::class)
     override suspend fun getTopStories(page: Int): List<NewsFeedItem> {
         // Calculate 48h ago timestamp
         val fortyEightHoursAgo = Clock.System.now().epochSeconds - (48 * 60 * 60)
