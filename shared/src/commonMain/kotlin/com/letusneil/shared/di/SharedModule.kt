@@ -22,9 +22,6 @@ import org.koin.dsl.module
 import kotlin.time.Clock
 import kotlin.time.ExperimentalTime
 
-// 1. SCALABILITY: Split definitions by layer
-// This makes it easy to find definitions and keeps files small as the app grows.
-
 @OptIn(ExperimentalTime::class)
 val platformModule = module {
     singleOf(::AppDispatchersImpl) { bind<AppDispatchers>() }
