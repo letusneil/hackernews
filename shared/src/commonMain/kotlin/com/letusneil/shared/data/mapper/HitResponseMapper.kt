@@ -17,7 +17,7 @@ internal fun HitResponse.toDomain(category: NewsCategory): NewsFeedItem {
             author = author ?: "Anonymous",
             points = points ?: 0,
             commentCount = commentCount ?: 0,
-            timeAgo = formatTimeAgo(createdAt),
+            timeAgo = createdAt?.let { formatTimeAgo(it) } ?: "",
         ),
         category = category
     )

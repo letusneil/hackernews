@@ -9,9 +9,9 @@ data class HitResponse(
     val title: String? = null,
     val url: String? = null,
     val author: String? = null,
-    val points: Int? = 0,
-    @SerialName("num_comments") val commentCount: Int? = 0,
-    @SerialName("created_at_i") val createdAt: Long,
+    val points: Int? = null,
+    @SerialName("num_comments") val commentCount: Int? = null,
+    @SerialName("created_at_i") val createdAt: Long? = null,
     @SerialName("_tags") val tags: List<String> = emptyList(),
     @SerialName("story_text") val storyText: String? = null
 )

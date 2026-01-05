@@ -106,7 +106,7 @@ fun HomeContent(
                     }
                 }
 
-                uiState.stories.isEmpty() && uiState.error != null -> {
+                uiState.stories.isEmpty() && !uiState.isLoading && !uiState.isRefreshing -> {
                     Box(
                         modifier = Modifier.fillMaxSize(),
                         contentAlignment = Alignment.Center
