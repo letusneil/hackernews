@@ -6,9 +6,13 @@ import com.letusneil.shared.data.repository.NewsRepository
 import com.letusneil.shared.data.repository.NewsRepositoryImpl
 import com.letusneil.shared.domain.usecase.GetTopStoriesUseCase
 import com.letusneil.shared.presentation.home.HomeViewModel
-import io.ktor.client.*
-import io.ktor.client.plugins.contentnegotiation.*
-import io.ktor.serialization.kotlinx.json.*
+import io.github.aakira.napier.Napier
+import io.ktor.client.HttpClient
+import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
+import io.ktor.client.plugins.logging.LogLevel
+import io.ktor.client.plugins.logging.Logger
+import io.ktor.client.plugins.logging.Logging
+import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 import org.koin.core.module.dsl.bind
 import org.koin.core.module.dsl.factoryOf
@@ -18,33 +22,64 @@ import org.koin.dsl.module
 import kotlin.time.Clock
 import kotlin.time.ExperimentalTime
 
-@OptIn(ExperimentalTime::class)
-val sharedModule = module {
-    singleOf(::AppDispatchersImpl) { bind<AppDispatchers>() }
+// 1. SCALABILITY: Split definitions by layer
+// This makes it easy to find definitions and keeps files small as the app grows.
 
-    single {
-        HttpClient {
-            install(ContentNegotiation) {
-                json(Json {
-                    ignoreUnknownKeys = true
-                    prettyPrint = true
-                    isLenient = true
-                })
+@OptIn(ExperimentalTime::class)
+val platformModule = module {
+    singleOf(::AppDispatchersImpl) { bind<AppDispatchers>() }
+    single<Clock> { Clock.System }
+}
+
+val networkModule = module {
+    // We use a factory function for clearer configuration
+    single { provideHttpClient() }
+}
+
+@OptIn(ExperimentalTime::class)
+val dataModule = module {
+    singleOf(::KtorHackerNewsApi) { bind<HackerNewsApi>() }
+    singleOf(::NewsRepositoryImpl) { bind<NewsRepository>() }
+}
+
+val domainModule = module {
+    factoryOf(::GetTopStoriesUseCase)
+}
+
+val presentationModule = module {
+    viewModelOf(::HomeViewModel)
+}
+
+val sharedModule = module {
+    includes(
+        platformModule,
+        networkModule,
+        dataModule,
+        domainModule,
+        presentationModule
+    )
+}
+
+private fun provideHttpClient(): HttpClient = HttpClient {
+    install(ContentNegotiation) {
+        json(Json {
+            ignoreUnknownKeys = true
+            prettyPrint = true
+            isLenient = true
+        })
+    }
+
+    install(Logging) {
+        // Use Headers or Info. Avoid ALL in production (leaks sensitive data).
+        level = LogLevel.HEADERS
+
+        // Custom logger using Napier
+        logger = object : Logger {
+            override fun log(message: String) {
+                Napier.v(tag = "Network", message = message)
             }
         }
     }
-
-    single<Clock> { Clock.System }
-
-    // Data layer
-    singleOf(::KtorHackerNewsApi) { bind<HackerNewsApi>() }
-    singleOf(::NewsRepositoryImpl) { bind<NewsRepository>() }
-
-    // Domain layer - Use Cases
-    factoryOf(::GetTopStoriesUseCase)
-
-    // Presentation layer - ViewModels
-    viewModelOf(::HomeViewModel)
 }
 
 // Platform-specific module (Expect/Actual)
