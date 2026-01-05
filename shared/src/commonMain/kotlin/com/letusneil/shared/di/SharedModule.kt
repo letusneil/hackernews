@@ -20,6 +20,8 @@ import kotlin.time.ExperimentalTime
 
 @OptIn(ExperimentalTime::class)
 val sharedModule = module {
+    singleOf(::AppDispatchersImpl) { bind<AppDispatchers>() }
+
     single {
         HttpClient {
             install(ContentNegotiation) {
