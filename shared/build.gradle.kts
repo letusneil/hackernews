@@ -64,8 +64,12 @@ kotlin {
                 // Core Logic
                 implementation(project.dependencies.platform(libs.koin.bom))
                 implementation(libs.koin.core)
+                implementation(libs.koin.compose.viewmodel)
 
                 implementation(libs.kotlinx.datetime)
+
+                // ViewModel
+                implementation(libs.androidx.lifecycle.viewmodel)
 
                 // Networking
                 implementation(libs.ktor.client.core)
