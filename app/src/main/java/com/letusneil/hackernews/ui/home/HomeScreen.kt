@@ -90,7 +90,7 @@ fun HomeContent(
         }
     ) { paddingValues ->
         PullToRefreshBox(
-            isRefreshing = uiState.isLoading && uiState.stories.isEmpty(),
+            isRefreshing = uiState.isRefreshing,
             onRefresh = onRefresh,
             modifier = Modifier
                 .fillMaxSize()
