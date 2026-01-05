@@ -79,8 +79,31 @@ class HomeViewModel(
     }
 
     fun refresh() {
-        _uiState.update { HomeUiState() }
-        loadStories()
+        if (_uiState.value.isRefreshing) return
+
+        viewModelScope.launch {
+            _uiState.update { it.copy(isRefreshing = true, error = null) }
+
+            getTopStoriesUseCase(page = 0)
+                .onSuccess { stories ->
+                    _uiState.update {
+                        it.copy(
+                            stories = stories,
+                            isRefreshing = false,
+                            currentPage = 0,
+                            canLoadMore = stories.isNotEmpty()
+                        )
+                    }
+                }
+                .onFailure { error ->
+                    _uiState.update {
+                        it.copy(
+                            isRefreshing = false,
+                            error = error.message ?: "Failed to refresh stories"
+                        )
+                    }
+                }
+        }
     }
 
     fun clearError() {
