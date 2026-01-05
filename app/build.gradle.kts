@@ -62,6 +62,9 @@ dependencies {
     implementation(libs.koin.androidx.compose)
     implementation(libs.koin.compose.viewmodel)
 
+    // Ktor (needed for HttpClient engine resolution)
+    implementation(libs.ktor.client.okhttp)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

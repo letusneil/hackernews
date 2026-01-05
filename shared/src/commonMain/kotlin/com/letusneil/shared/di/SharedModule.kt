@@ -15,6 +15,7 @@ import org.koin.core.module.dsl.factoryOf
 import org.koin.core.module.dsl.singleOf
 import org.koin.core.module.dsl.viewModelOf
 import org.koin.dsl.module
+import kotlin.time.Clock
 import kotlin.time.ExperimentalTime
 
 @OptIn(ExperimentalTime::class)
@@ -30,6 +31,8 @@ val sharedModule = module {
             }
         }
     }
+
+    single<Clock> { Clock.System }
 
     // Data layer
     singleOf(::KtorHackerNewsApi) { bind<HackerNewsApi>() }
