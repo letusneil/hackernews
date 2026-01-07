@@ -11,10 +11,14 @@ class HackernewsApplication : Application() {
 
     override fun onCreate() {
         super.onCreate()
+
         startKoin {
             androidLogger()
             androidContext(this@HackernewsApplication)
             modules(sharedModule)
+        }
+
+        if (BuildConfig.DEBUG) {
             initKmpLogging()
         }
     }
