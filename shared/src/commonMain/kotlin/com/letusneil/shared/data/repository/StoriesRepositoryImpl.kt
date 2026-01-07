@@ -2,6 +2,7 @@ package com.letusneil.shared.data.repository
 
 import com.letusneil.shared.data.mapper.toDomain
 import com.letusneil.shared.data.remote.HackerNewsApi
+import com.letusneil.shared.data.remote.model.StoryDetailResponse
 import com.letusneil.shared.di.AppDispatchers
 import com.letusneil.shared.domain.model.StoryCategory
 import com.letusneil.shared.domain.model.StoriesFeedItem
@@ -12,7 +13,7 @@ import kotlin.time.ExperimentalTime
 
 interface StoriesRepository {
     suspend fun getTopStories(page: Int): List<StoriesFeedItem>
-    suspend fun getStoryDetail(storyId: String): StoryDetail
+//    suspend fun getStoryDetail(storyId: String): StoryDetail
 }
 
 @OptIn(ExperimentalTime::class)
@@ -28,17 +29,18 @@ internal class StoriesRepositoryImpl(
         response.hits.map { it.toDomain(StoryCategory.TOP) }
     }
 
-    override suspend fun getStoryDetail(storyId: String): StoryDetail {
-        val storyDto = api.fetchItem(storyId) // You likely need to add fetchItem(id) to your API
-
-        // Fetch top-level comments in parallel
-        val comments = storyDto.kids?.map { commentId ->
-            async { fetchCommentTree(commentId) }
-        }?.awaitAll() ?: emptyList()
-
-        return StoryDetail(
-            story = storyDto.toDomain(NewsCategory.TOP), // Reuse your mapper
-            comments = comments
-        )
-    }
+//    override suspend fun getStoryDetail(storyId: String) = withContext(dispatchers.io) {
+////        val storyDto = api.fetchItem(storyId) // You likely need to add fetchItem(id) to your API
+////
+////        // Fetch top-level comments in parallel
+////        val comments = storyDto.kids?.map { commentId ->
+////            async { fetchCommentTree(commentId) }
+////        }?.awaitAll() ?: emptyList()
+////
+////        return StoryDetail(
+////            story = storyDto.toDomain(NewsCategory.TOP), // Reuse your mapper
+////            comments = comments
+////        )
+//        StoryDetailResponse.
+//    }
 }
