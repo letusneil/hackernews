@@ -12,7 +12,7 @@ import kotlin.test.assertTrue
 import kotlin.time.Clock
 import kotlin.time.Instant
 
-class NewsRepositoryTest : BaseTest() {
+class StoriesRepositoryTest : BaseTest() {
 
     private val fixedNow = Instant.parse("2025-01-03T12:00:00Z")
     private val expectedTimestamp = Instant.parse("2025-01-01T12:00:00Z").epochSeconds
@@ -21,12 +21,12 @@ class NewsRepositoryTest : BaseTest() {
     }
 
     private lateinit var fakeApi: FakeHackerNewsApi
-    private lateinit var repository: NewsRepositoryImpl
+    private lateinit var repository: StoriesRepositoryImpl
 
     @BeforeTest
     fun setup() {
         fakeApi = FakeHackerNewsApi()
-        repository = NewsRepositoryImpl(
+        repository = StoriesRepositoryImpl(
             api = fakeApi,
             dispatchers = testDispatchers,
             clock = fixedClock

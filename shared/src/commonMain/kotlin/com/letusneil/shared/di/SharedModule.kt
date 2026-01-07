@@ -2,8 +2,8 @@ package com.letusneil.shared.di
 
 import com.letusneil.shared.data.remote.HackerNewsApi
 import com.letusneil.shared.data.remote.KtorHackerNewsApi
-import com.letusneil.shared.data.repository.NewsRepository
-import com.letusneil.shared.data.repository.NewsRepositoryImpl
+import com.letusneil.shared.data.repository.StoriesRepository
+import com.letusneil.shared.data.repository.StoriesRepositoryImpl
 import com.letusneil.shared.domain.usecase.GetTopStoriesUseCase
 import com.letusneil.shared.presentation.home.HomeViewModel
 import io.github.aakira.napier.Napier
@@ -36,7 +36,7 @@ val networkModule = module {
 @OptIn(ExperimentalTime::class)
 val dataModule = module {
     singleOf(::KtorHackerNewsApi) { bind<HackerNewsApi>() }
-    singleOf(::NewsRepositoryImpl) { bind<NewsRepository>() }
+    singleOf(::StoriesRepositoryImpl) { bind<StoriesRepository>() }
 }
 
 val domainModule = module {
