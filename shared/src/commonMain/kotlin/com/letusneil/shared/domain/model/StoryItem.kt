@@ -1,11 +1,11 @@
 package com.letusneil.shared.domain.model
 
-data class NewsFeedItem(
-    val newsItem: NewsItem,
-    val category: NewsCategory
+data class StoriesFeedItem(
+    val storyItem: StoryItem,
+    val category: StoryCategory
 )
 
-data class NewsItem(
+data class StoryItem(
     val id: String,
     val title: String,
     val url: String?,
@@ -15,6 +15,6 @@ data class NewsItem(
     val timeAgo: String, // Human readable: "2 hours ago"
 )
 
-enum class NewsCategory {
+enum class StoryCategory {
     TOP, NEW, BEST, SHOW, ASK, JOB
 }

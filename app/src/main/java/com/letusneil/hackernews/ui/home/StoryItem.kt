@@ -19,17 +19,17 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.letusneil.hackernews.ui.theme.HackernewsTheme
-import com.letusneil.shared.domain.model.NewsCategory
-import com.letusneil.shared.domain.model.NewsFeedItem
-import com.letusneil.shared.domain.model.NewsItem
+import com.letusneil.shared.domain.model.StoryCategory
+import com.letusneil.shared.domain.model.StoriesFeedItem
+import com.letusneil.shared.domain.model.StoryItem
 
 @Composable
 fun StoryItem(
-    item: NewsFeedItem,
-    onClick: (NewsFeedItem) -> Unit,
+    item: StoriesFeedItem,
+    onClick: (StoriesFeedItem) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val newsItem = item.newsItem
+    val newsItem = item.storyItem
 
     Card(
         modifier = modifier
@@ -110,8 +110,8 @@ private fun extractDomain(url: String): String {
 private fun StoryItemPreview() {
     HackernewsTheme {
         StoryItem(
-            item = NewsFeedItem(
-                newsItem = NewsItem(
+            item = StoriesFeedItem(
+                storyItem = StoryItem(
                     id = "1",
                     title = "Show HN: I built a tool to automatically optimize React performance",
                     url = "https://github.com/example/react-optimizer",
@@ -120,7 +120,7 @@ private fun StoryItemPreview() {
                     commentCount = 89,
                     timeAgo = "3 hours ago"
                 ),
-                category = NewsCategory.TOP
+                category = StoryCategory.TOP
             ),
             onClick = {}
         )
@@ -132,8 +132,8 @@ private fun StoryItemPreview() {
 private fun StoryItemNoUrlPreview() {
     HackernewsTheme {
         StoryItem(
-            item = NewsFeedItem(
-                newsItem = NewsItem(
+            item = StoriesFeedItem(
+                storyItem = StoryItem(
                     id = "2",
                     title = "Ask HN: What are the best resources for learning system design?",
                     url = null,
@@ -142,7 +142,7 @@ private fun StoryItemNoUrlPreview() {
                     commentCount = 67,
                     timeAgo = "5 hours ago"
                 ),
-                category = NewsCategory.ASK
+                category = StoryCategory.ASK
             ),
             onClick = {}
         )

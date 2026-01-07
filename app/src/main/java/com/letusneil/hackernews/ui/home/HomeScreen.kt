@@ -25,16 +25,16 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.letusneil.hackernews.ui.theme.HackernewsTheme
-import com.letusneil.shared.domain.model.NewsCategory
-import com.letusneil.shared.domain.model.NewsFeedItem
-import com.letusneil.shared.domain.model.NewsItem
+import com.letusneil.shared.domain.model.StoryCategory
+import com.letusneil.shared.domain.model.StoriesFeedItem
+import com.letusneil.shared.domain.model.StoryItem
 import com.letusneil.shared.presentation.home.HomeUiState
 import com.letusneil.shared.presentation.home.HomeViewModel
 import org.koin.compose.viewmodel.koinViewModel
 
 @Composable
 fun HomeScreen(
-    onStoryClick: (NewsFeedItem) -> Unit,
+    onStoryClick: (StoriesFeedItem) -> Unit,
     modifier: Modifier = Modifier,
     viewModel: HomeViewModel = koinViewModel()
 ) {
@@ -54,7 +54,7 @@ fun HomeScreen(
 @Composable
 fun HomeContent(
     uiState: HomeUiState,
-    onStoryClick: (NewsFeedItem) -> Unit,
+    onStoryClick: (StoriesFeedItem) -> Unit,
     onRefresh: () -> Unit,
     onLoadMore: () -> Unit,
     onClearError: () -> Unit,
@@ -137,8 +137,8 @@ fun HomeContent(
 }
 
 private val previewStories = listOf(
-    NewsFeedItem(
-        newsItem = NewsItem(
+    StoriesFeedItem(
+        storyItem = StoryItem(
             id = "1",
             title = "Show HN: I built a tool to automatically optimize React performance",
             url = "https://github.com/example/react-optimizer",
@@ -147,10 +147,10 @@ private val previewStories = listOf(
             commentCount = 89,
             timeAgo = "3 hours ago"
         ),
-        category = NewsCategory.TOP
+        category = StoryCategory.TOP
     ),
-    NewsFeedItem(
-        newsItem = NewsItem(
+    StoriesFeedItem(
+        storyItem = StoryItem(
             id = "2",
             title = "Why Rust is the future of systems programming",
             url = "https://blog.example.com/rust-future",
@@ -159,10 +159,10 @@ private val previewStories = listOf(
             commentCount = 124,
             timeAgo = "5 hours ago"
         ),
-        category = NewsCategory.TOP
+        category = StoryCategory.TOP
     ),
-    NewsFeedItem(
-        newsItem = NewsItem(
+    StoriesFeedItem(
+        storyItem = StoryItem(
             id = "3",
             title = "Ask HN: What are the best resources for learning system design?",
             url = null,
@@ -171,7 +171,7 @@ private val previewStories = listOf(
             commentCount = 67,
             timeAgo = "7 hours ago"
         ),
-        category = NewsCategory.ASK
+        category = StoryCategory.ASK
     )
 )
 

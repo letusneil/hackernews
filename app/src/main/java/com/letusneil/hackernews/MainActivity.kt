@@ -17,7 +17,7 @@ class MainActivity : ComponentActivity() {
             HackernewsTheme {
                 HomeScreen(
                     onStoryClick = { story ->
-                        story.newsItem.url?.let { url ->
+                        story.storyItem.url?.let { url ->
                             startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
                         }
                     }

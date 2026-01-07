@@ -18,13 +18,13 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.letusneil.shared.domain.model.NewsFeedItem
+import com.letusneil.shared.domain.model.StoriesFeedItem
 
 @Composable
 fun StoryList(
-    stories: List<NewsFeedItem>,
+    stories: List<StoriesFeedItem>,
     isLoadingMore: Boolean,
-    onStoryClick: (NewsFeedItem) -> Unit,
+    onStoryClick: (StoriesFeedItem) -> Unit,
     onLoadMore: () -> Unit,
     modifier: Modifier = Modifier,
     listState: LazyListState = rememberLazyListState()
@@ -51,7 +51,7 @@ fun StoryList(
     ) {
         items(
             items = stories,
-            key = { it.newsItem.id }
+            key = { it.storyItem.id }
         ) { story ->
             StoryItem(
                 item = story,

@@ -1,16 +1,16 @@
 package com.letusneil.shared.data.mapper
 
 import com.letusneil.shared.data.remote.model.HitResponse
-import com.letusneil.shared.domain.model.NewsCategory
-import com.letusneil.shared.domain.model.NewsFeedItem
-import com.letusneil.shared.domain.model.NewsItem
+import com.letusneil.shared.domain.model.StoryCategory
+import com.letusneil.shared.domain.model.StoriesFeedItem
+import com.letusneil.shared.domain.model.StoryItem
 import com.letusneil.shared.util.formatTimeAgo
 import kotlin.time.ExperimentalTime
 
 @OptIn(ExperimentalTime::class)
-internal fun HitResponse.toDomain(category: NewsCategory): NewsFeedItem {
-    return NewsFeedItem(
-        newsItem = NewsItem(
+internal fun HitResponse.toDomain(category: StoryCategory): StoriesFeedItem {
+    return StoriesFeedItem(
+        storyItem = StoryItem(
             id = id,
             title = title ?: storyText?.take(50)?.let { "$it..." } ?: "Untitled",
             url = url,

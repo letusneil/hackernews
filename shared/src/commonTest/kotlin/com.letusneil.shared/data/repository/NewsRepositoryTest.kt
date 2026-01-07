@@ -2,7 +2,7 @@ package com.letusneil.shared.data.repository
 
 import com.letusneil.shared.BaseTest
 import com.letusneil.shared.data.remote.fakes.FakeHackerNewsApi
-import com.letusneil.shared.domain.model.NewsCategory
+import com.letusneil.shared.domain.model.StoryCategory
 import kotlinx.coroutines.test.runTest
 import kotlin.test.BeforeTest
 import kotlin.test.Test
@@ -45,8 +45,8 @@ class NewsRepositoryTest : BaseTest() {
             message = "Repository should request stories from exactly 48 hours ago"
         )
         assertEquals(1, result.size)
-        assertEquals("Test Title", result[0].newsItem.title)
-        assertEquals(NewsCategory.TOP, result[0].category)
+        assertEquals("Test Title", result[0].storyItem.title)
+        assertEquals(StoryCategory.TOP, result[0].category)
     }
 
     @Test
@@ -88,7 +88,7 @@ class NewsRepositoryTest : BaseTest() {
         val result = repository.getTopStories(page = 0)
 
         // ASSERT
-        val newsItem = result[0].newsItem
+        val newsItem = result[0].storyItem
         assertEquals("test_id", newsItem.id)
         assertEquals("Test Title", newsItem.title)
         assertEquals(21, newsItem.points)
