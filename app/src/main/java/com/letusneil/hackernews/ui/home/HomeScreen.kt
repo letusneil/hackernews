@@ -23,16 +23,14 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.letusneil.hackernews.ui.components.LiquidGlassBackground
-import com.letusneil.hackernews.ui.components.LiquidGlassGradient
 import com.letusneil.hackernews.ui.theme.HackernewsTheme
+import com.letusneil.hackernews.ui.theme.LiquidGlassColors
 import com.letusneil.shared.domain.model.StoryCategory
 import com.letusneil.shared.domain.model.StoriesFeedItem
 import com.letusneil.shared.domain.model.StoryItem
@@ -80,21 +78,14 @@ fun HomeContent(
     Box(
         modifier = modifier
             .fillMaxSize()
-            .background(LiquidGlassGradient)
+            .background(LiquidGlassColors.backgroundGradientDark)
     ) {
         Column(modifier = Modifier.fillMaxSize()) {
             // Glass App Bar
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .background(
-                        Brush.verticalGradient(
-                            colors = listOf(
-                                Color.White.copy(alpha = 0.15f),
-                                Color.White.copy(alpha = 0.05f)
-                            )
-                        )
-                    )
+                    .background(LiquidGlassColors.appBarGradient)
                     .windowInsetsPadding(WindowInsets.statusBars)
                     .padding(horizontal = 20.dp, vertical = 16.dp)
             ) {
@@ -102,7 +93,7 @@ fun HomeContent(
                     text = "Hacker News",
                     fontSize = 28.sp,
                     fontWeight = FontWeight.Bold,
-                    color = Color.White
+                    color = LiquidGlassColors.textPrimary
                 )
             }
 
@@ -118,7 +109,7 @@ fun HomeContent(
                             modifier = Modifier.fillMaxSize(),
                             contentAlignment = Alignment.Center
                         ) {
-                            CircularProgressIndicator(color = Color.White)
+                            CircularProgressIndicator(color = LiquidGlassColors.textPrimary)
                         }
                     }
 
@@ -130,13 +121,13 @@ fun HomeContent(
                             Column(horizontalAlignment = Alignment.CenterHorizontally) {
                                 Text(
                                     text = "Failed to load stories",
-                                    color = Color.White.copy(alpha = 0.7f),
+                                    color = LiquidGlassColors.textSecondary,
                                     fontSize = 16.sp
                                 )
                                 TextButton(onClick = onRefresh) {
                                     Text(
                                         text = "Retry",
-                                        color = Color(0xFF64B5F6)
+                                        color = LiquidGlassColors.accentBlue
                                     )
                                 }
                             }
@@ -162,8 +153,8 @@ fun HomeContent(
         ) { data ->
             Snackbar(
                 snackbarData = data,
-                containerColor = Color.White.copy(alpha = 0.9f),
-                contentColor = Color.Black
+                containerColor = LiquidGlassColors.snackbarBackground,
+                contentColor = LiquidGlassColors.snackbarContent
             )
         }
     }

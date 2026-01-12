@@ -12,7 +12,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
@@ -20,6 +19,7 @@ import androidx.compose.ui.unit.dp
 import com.letusneil.hackernews.ui.components.GlassCard
 import com.letusneil.hackernews.ui.components.LiquidGlassBackground
 import com.letusneil.hackernews.ui.theme.HackernewsTheme
+import com.letusneil.hackernews.ui.theme.LiquidGlassColors
 import com.letusneil.shared.domain.model.StoryCategory
 import com.letusneil.shared.domain.model.StoriesFeedItem
 import com.letusneil.shared.domain.model.StoryItem
@@ -43,7 +43,7 @@ fun StoryItem(
                 text = storyItem.title,
                 style = MaterialTheme.typography.titleMedium,
                 fontWeight = FontWeight.SemiBold,
-                color = Color.White,
+                color = LiquidGlassColors.textPrimary,
                 maxLines = 2,
                 overflow = TextOverflow.Ellipsis
             )
@@ -54,7 +54,7 @@ fun StoryItem(
                 Text(
                     text = extractDomain(url),
                     style = MaterialTheme.typography.bodySmall,
-                    color = Color(0xFF64B5F6),
+                    color = LiquidGlassColors.accentBlue,
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis
                 )
@@ -69,18 +69,18 @@ fun StoryItem(
                 Text(
                     text = "${storyItem.points} points",
                     style = MaterialTheme.typography.labelMedium,
-                    color = Color(0xFFFFB74D)
+                    color = LiquidGlassColors.accentOrange
                 )
                 Text(
                     text = "${storyItem.commentCount} comments",
                     style = MaterialTheme.typography.labelMedium,
-                    color = Color.White.copy(alpha = 0.7f)
+                    color = LiquidGlassColors.textSecondary
                 )
                 Spacer(modifier = Modifier.weight(1f))
                 Text(
                     text = storyItem.timeAgo,
                     style = MaterialTheme.typography.labelSmall,
-                    color = Color.White.copy(alpha = 0.5f)
+                    color = LiquidGlassColors.textTertiary
                 )
             }
 
@@ -89,7 +89,7 @@ fun StoryItem(
             Text(
                 text = "by ${storyItem.author}",
                 style = MaterialTheme.typography.labelSmall,
-                color = Color(0xFF81D4FA)
+                color = LiquidGlassColors.accentCyan
             )
         }
     }

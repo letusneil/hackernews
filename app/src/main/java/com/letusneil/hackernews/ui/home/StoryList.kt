@@ -17,8 +17,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
+import com.letusneil.hackernews.ui.theme.LiquidGlassColors
 import com.letusneil.shared.domain.model.StoriesFeedItem
 
 @Composable
@@ -68,7 +68,7 @@ fun StoryList(
                         .padding(16.dp),
                     contentAlignment = Alignment.Center
                 ) {
-                    CircularProgressIndicator(color = Color.White.copy(alpha = 0.7f))
+                    CircularProgressIndicator(color = LiquidGlassColors.textSecondary)
                 }
             }
         }

@@ -8,10 +8,9 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.letusneil.hackernews.ui.theme.LiquidGlassColors
 
 @Composable
 fun GlassCard(
@@ -22,27 +21,13 @@ fun GlassCard(
 ) {
     val shape = RoundedCornerShape(cornerRadius)
 
-    val glassBackground = Brush.linearGradient(
-        colors = listOf(
-            Color.White.copy(alpha = 0.25f),
-            Color.White.copy(alpha = 0.10f)
-        )
-    )
-
-    val borderGradient = Brush.linearGradient(
-        colors = listOf(
-            Color.White.copy(alpha = 0.5f),
-            Color.White.copy(alpha = 0.1f)
-        )
-    )
-
     Box(
         modifier = modifier
             .clip(shape)
-            .background(glassBackground)
+            .background(LiquidGlassColors.glassBackgroundGradient)
             .border(
                 width = 1.dp,
-                brush = borderGradient,
+                brush = LiquidGlassColors.glassBorderGradient,
                 shape = shape
             )
             .then(
