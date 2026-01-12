@@ -1,6 +1,5 @@
 package com.letusneil.hackernews.ui.home
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -8,16 +7,18 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.letusneil.hackernews.ui.components.GlassCard
+import com.letusneil.hackernews.ui.components.LiquidGlassBackground
 import com.letusneil.hackernews.ui.theme.HackernewsTheme
 import com.letusneil.shared.domain.model.StoryCategory
 import com.letusneil.shared.domain.model.StoriesFeedItem
@@ -29,37 +30,35 @@ fun StoryItem(
     onClick: (StoriesFeedItem) -> Unit,
     modifier: Modifier = Modifier
 ) {
-    val newsItem = item.storyItem
+    val storyItem = item.storyItem
 
-    Card(
-        modifier = modifier
-            .fillMaxWidth()
-            .clickable { onClick(item) },
-        colors = CardDefaults.cardColors(
-            containerColor = MaterialTheme.colorScheme.surface
-        )
+    GlassCard(
+        modifier = modifier.fillMaxWidth(),
+        onClick = { onClick(item) }
     ) {
         Column(
             modifier = Modifier.padding(16.dp)
         ) {
             Text(
-                text = newsItem.title,
+                text = storyItem.title,
                 style = MaterialTheme.typography.titleMedium,
+                fontWeight = FontWeight.SemiBold,
+                color = Color.White,
                 maxLines = 2,
                 overflow = TextOverflow.Ellipsis
             )
 
-            Spacer(modifier = Modifier.height(8.dp))
+            Spacer(modifier = Modifier.height(10.dp))
 
-            newsItem.url?.let { url ->
+            storyItem.url?.let { url ->
                 Text(
                     text = extractDomain(url),
                     style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.primary,
+                    color = Color(0xFF64B5F6),
                     maxLines = 1,
                     overflow = TextOverflow.Ellipsis
                 )
-                Spacer(modifier = Modifier.height(4.dp))
+                Spacer(modifier = Modifier.height(6.dp))
             }
 
             Row(
@@ -68,29 +67,29 @@ fun StoryItem(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(
-                    text = "${newsItem.points} points",
+                    text = "${storyItem.points} points",
                     style = MaterialTheme.typography.labelMedium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                    color = Color(0xFFFFB74D)
                 )
                 Text(
-                    text = "${newsItem.commentCount} comments",
+                    text = "${storyItem.commentCount} comments",
                     style = MaterialTheme.typography.labelMedium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                    color = Color.White.copy(alpha = 0.7f)
                 )
                 Spacer(modifier = Modifier.weight(1f))
                 Text(
-                    text = newsItem.timeAgo,
+                    text = storyItem.timeAgo,
                     style = MaterialTheme.typography.labelSmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                    color = Color.White.copy(alpha = 0.5f)
                 )
             }
 
-            Spacer(modifier = Modifier.height(4.dp))
+            Spacer(modifier = Modifier.height(6.dp))
 
             Text(
-                text = "by ${newsItem.author}",
+                text = "by ${storyItem.author}",
                 style = MaterialTheme.typography.labelSmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
+                color = Color(0xFF81D4FA)
             )
         }
     }
@@ -109,21 +108,24 @@ private fun extractDomain(url: String): String {
 @Composable
 private fun StoryItemPreview() {
     HackernewsTheme {
-        StoryItem(
-            item = StoriesFeedItem(
-                storyItem = StoryItem(
-                    id = "1",
-                    title = "Show HN: I built a tool to automatically optimize React performance",
-                    url = "https://github.com/example/react-optimizer",
-                    author = "johndoe",
-                    points = 256,
-                    commentCount = 89,
-                    timeAgo = "3 hours ago"
+        LiquidGlassBackground {
+            StoryItem(
+                item = StoriesFeedItem(
+                    storyItem = StoryItem(
+                        id = "1",
+                        title = "Show HN: I built a tool to automatically optimize React performance",
+                        url = "https://github.com/example/react-optimizer",
+                        author = "johndoe",
+                        points = 256,
+                        commentCount = 89,
+                        timeAgo = "3 hours ago"
+                    ),
+                    category = StoryCategory.TOP
                 ),
-                category = StoryCategory.TOP
-            ),
-            onClick = {}
-        )
+                onClick = {},
+                modifier = Modifier.padding(16.dp)
+            )
+        }
     }
 }
 
@@ -131,20 +133,23 @@ private fun StoryItemPreview() {
 @Composable
 private fun StoryItemNoUrlPreview() {
     HackernewsTheme {
-        StoryItem(
-            item = StoriesFeedItem(
-                storyItem = StoryItem(
-                    id = "2",
-                    title = "Ask HN: What are the best resources for learning system design?",
-                    url = null,
-                    author = "curious_dev",
-                    points = 142,
-                    commentCount = 67,
-                    timeAgo = "5 hours ago"
+        LiquidGlassBackground {
+            StoryItem(
+                item = StoriesFeedItem(
+                    storyItem = StoryItem(
+                        id = "2",
+                        title = "Ask HN: What are the best resources for learning system design?",
+                        url = null,
+                        author = "curious_dev",
+                        points = 142,
+                        commentCount = 67,
+                        timeAgo = "5 hours ago"
+                    ),
+                    category = StoryCategory.ASK
                 ),
-                category = StoryCategory.ASK
-            ),
-            onClick = {}
-        )
+                onClick = {},
+                modifier = Modifier.padding(16.dp)
+            )
+        }
     }
 }
