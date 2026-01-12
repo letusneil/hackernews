@@ -38,6 +38,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.letusneil.hackernews.navigation.StoryDetailRoute
 import com.letusneil.hackernews.ui.theme.HackernewsTheme
+import androidx.core.net.toUri
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -126,7 +127,7 @@ fun StoryDetailScreen(
             route.url?.let { url ->
                 FilledTonalButton(
                     onClick = {
-                        context.startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url)))
+                        context.startActivity(Intent(Intent.ACTION_VIEW, url.toUri()))
                     },
                     modifier = Modifier.fillMaxWidth()
                 ) {
